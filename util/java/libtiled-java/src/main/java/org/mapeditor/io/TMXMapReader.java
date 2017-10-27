@@ -56,7 +56,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
+import org.apache.commons.io.FilenameUtils;
 import org.mapeditor.core.AnimatedTile;
 import org.mapeditor.core.Map;
 import org.mapeditor.core.MapObject;
@@ -775,6 +775,7 @@ public class TMXMapReader {
      * @throws java.lang.Exception if any.
      */
     public Map readMap(String filename) throws Exception {
+        filename = FilenameUtils.normalize(filename);
         xmlPath = filename.substring(0,
                 filename.lastIndexOf(File.separatorChar) + 1);
 

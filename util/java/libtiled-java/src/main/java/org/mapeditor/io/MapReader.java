@@ -46,7 +46,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-
+import org.apache.commons.io.FilenameUtils;
 import org.mapeditor.core.Map;
 import org.mapeditor.core.TileSet;
 
@@ -80,6 +80,7 @@ public class MapReader {
      * @throws java.io.IOException if any.
      */
     public Map readMap(String filename) throws IOException {
+        filename = FilenameUtils.normalize(filename);
         int fileSeparatorIndex = filename.lastIndexOf(File.separatorChar) + 1;
         String xmlPath = makeUrl(filename.substring(0, fileSeparatorIndex));
 

@@ -67,7 +67,7 @@ public class MapReaderTest {
     @Test
     public void testReadingSewersMap() throws Exception {
         // Arrange
-        URL url = getUrlFromResources("sewers/sewers.tmx");
+        URL url = getUrlFromResources("/sewers/sewers.tmx");
 
         // Act
         Map map = new TMXMapReader().readMap(url.getPath());
@@ -99,7 +99,7 @@ public class MapReaderTest {
     @Test
     public void testReadingCsvMap() throws Exception {
         // Arrange
-        URL url = getUrlFromResources("csvmap/csvmap.tmx");
+        URL url = getUrlFromResources("/csvmap/csvmap.tmx");
 
         // Act
         Map map = new TMXMapReader().readMap(url.getPath());
@@ -119,7 +119,7 @@ public class MapReaderTest {
     @Test
     public void testReadingCsvMapEmbeddedImageCollection() throws Exception {
         // Arrange
-        URL url = getUrlFromResources("csvmap_embedded_image_collection/csvmap_embedded_image_collection.tmx");
+        URL url = getUrlFromResources("/csvmap_embedded_image_collection/csvmap_embedded_image_collection.tmx");
 
         // Act
         Map map = new TMXMapReader().readMap(url.getPath());
@@ -143,7 +143,7 @@ public class MapReaderTest {
     @Test
     public void testReadingDesertMap() throws Exception {
         // Arrange
-        URL url = getUrlFromResources("desert/desert.tmx");
+        URL url = getUrlFromResources("/desert/desert.tmx");
 
         // Act
         Map map = new TMXMapReader().readMap(url.getPath());
@@ -162,20 +162,20 @@ public class MapReaderTest {
 
     @Test(expected = IOException.class)
     public void testErrorReadingImage() throws Exception {
-        URL url = getUrlFromResources("desert_missing_image/desert.tmx");
+        URL url = getUrlFromResources("/desert_missing_image/desert.tmx");
         new TMXMapReader().readMap(url.getPath());
     }
 
     @Test(expected = IOException.class)
     public void testErrorReadingTileset() throws Exception {
-        URL url = getUrlFromResources("desert_missing_tileset/desert.tmx");
+        URL url = getUrlFromResources("/desert_missing_tileset/desert.tmx");
         new TMXMapReader().readMap(url.getPath());
     }
 
     @Test
     public void testReadingExampleOutsideMap() throws Exception {
         // Arrange
-        URL url = getUrlFromResources("orthogonal-outside/orthogonal-outside.tmx");
+        URL url = getUrlFromResources("/orthogonal-outside/orthogonal-outside.tmx");
 
         // Act
         Map map = new TMXMapReader().readMap(url.getPath());
@@ -195,7 +195,7 @@ public class MapReaderTest {
     @Test
     public void testReadingPerspectiveWallsMap() throws Exception {
         // Arrange
-        URL url = getUrlFromResources("perspective_walls/perspective_walls.tmx");
+        URL url = getUrlFromResources("/perspective_walls/perspective_walls.tmx");
 
         // Act
         Map map = new TMXMapReader().readMap(url.getPath());
@@ -215,7 +215,7 @@ public class MapReaderTest {
     @Test
     public void testReadingHexagonalMap() throws Exception {
         // Arrange
-        URL url = getUrlFromResources("hexagonal-mini/hexagonal-mini.tmx");
+        URL url = getUrlFromResources("/hexagonal-mini/hexagonal-mini.tmx");
 
         // Act
         Map map = new TMXMapReader().readMap(url.getPath());
@@ -235,7 +235,7 @@ public class MapReaderTest {
     @Test
     public void testReadingStaggeredMap() throws Exception {
         // Arrange
-        URL url = getUrlFromResources("staggered.tmx");
+        URL url = getUrlFromResources("/staggered.tmx");
 
         // Act
         Map map = new TMXMapReader().readMap(url.getPath());
@@ -252,7 +252,6 @@ public class MapReaderTest {
     }
 
     private URL getUrlFromResources(String filename) {
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        return classLoader.getResource(filename);
+        return this.getClass().getResource(filename);
     }
 }

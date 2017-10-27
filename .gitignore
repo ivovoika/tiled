@@ -49,3 +49,6 @@ wip/
 util/java/tmxviewer-java/target
 util/java/libtiled-java/target
 /util/java/target/
+*.classpath
+*.project
+.settings/
