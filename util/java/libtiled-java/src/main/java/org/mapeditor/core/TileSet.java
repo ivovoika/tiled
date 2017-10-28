@@ -37,6 +37,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -48,10 +49,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.mapeditor.util.TileCutter;
-import org.mapeditor.util.TransparentImageFilter;
-import org.mapeditor.util.BasicTileCutter;
+import org.mapeditor.util.*;
 
 /**
  * todo: Update documentation
@@ -102,7 +100,7 @@ public class TileSet extends TileSetData implements Iterable<Tile> {
             throws IOException {
         setTilesetImageFilename(imgFilename);
 
-        Image image = ImageIO.read(new File(imgFilename));
+        Image image = ImageIO.read(ResourceLoader.getInputStreamFromResources(imgFilename));
         if (image == null) {
             throw new IOException("Failed to load " + tilebmpFile);
         }

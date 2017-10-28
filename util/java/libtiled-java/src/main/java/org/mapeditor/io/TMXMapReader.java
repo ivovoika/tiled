@@ -67,7 +67,7 @@ import org.mapeditor.core.TileLayer;
 import org.mapeditor.core.TileSet;
 import org.mapeditor.util.BasicTileCutter;
 import org.mapeditor.util.ImageHelper;
-
+import org.mapeditor.util.ResourceLoader;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -168,12 +168,14 @@ public class TMXMapReader {
         String source = getAttributeValue(t, "source");
 
         if (source != null) {
-            if (checkRoot(source)) {
-                source = makeUrl(source);
-            } else {
-                source = makeUrl(baseDir + source);
-            }
-            img = ImageIO.read(new URL(source));
+//            if (checkRoot(source)) {
+//                source = makeUrl(source);
+//            } else {
+//                source = makeUrl(baseDir + source);
+//            }
+//            img = ImageIO.read(new URL(source));
+            source = baseDir + source;
+            img = ImageIO.read(ResourceLoader.getInputStreamFromResources(source));
         } else {
             NodeList nl = t.getChildNodes();
 
@@ -241,7 +243,8 @@ public class TMXMapReader {
         String source = set.getSource();
         if (source != null) {
             String filename = xmlPath + source;
-            InputStream in = new URL(makeUrl(filename)).openStream();
+//            InputStream in = new URL(makeUrl(filename)).openStream();
+            InputStream in = ResourceLoader.getInputStreamFromResources(filename);
             TileSet ext = unmarshalTilesetFile(in, filename);
             setFirstGidForTileset(ext, firstGid);
 
@@ -775,15 +778,18 @@ public class TMXMapReader {
      * @throws java.lang.Exception if any.
      */
     public Map readMap(String filename) throws Exception {
-        filename = FilenameUtils.normalize(filename);
-        xmlPath = filename.substring(0,
-                filename.lastIndexOf(File.separatorChar) + 1);
 
-        String xmlFile = makeUrl(filename);
+//        filename = FilenameUtils.normalize(filename);
+        xmlPath = FilenameUtils.getFullPath(filename);
+//        xmlPath = filename.substring(0,
+//                filename.lastIndexOf(File.separatorChar) + 1);
+
+//        String xmlFile = makeUrl(filename);
         //xmlPath = makeUrl(xmlPath);
 
-        URL url = new URL(xmlFile);
-        InputStream is = url.openStream();
+//        URL url = new URL(xmlFile);
+//        InputStream is = url.openStream();
+        InputStream is = ResourceLoader.getInputStreamFromResources(filename);
 
         // Wrap with GZIP decoder for .tmx.gz files
         if (filename.endsWith(".gz")) {
